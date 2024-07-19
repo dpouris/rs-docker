@@ -137,7 +137,7 @@ impl<'r> Registry<'r> {
         }
         for blob in layer_blobs {
             let mut archive = tar::Archive::new(GzDecoder::new(&blob[..]));
-            archive.unpack("./foo")?;
+            archive.unpack("/tmp/iso_root_fs")?;
         }
 
         Ok(())

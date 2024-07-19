@@ -21,7 +21,7 @@ async fn main() -> Result<()> {
     let registry = Registry::authenticate_repo(repo).await?;
     registry.pull().await?;
 
-    setup_root(&command_path)?;
+    setup_root()?;
 
     let output = process::Command::new(&command_path)
         .args(command_args)
@@ -95,15 +95,16 @@ fn cp_from_path(src: &PathBuf, dst: &Path) -> Result<()> {
     Ok(())
 }
 
-fn setup_root(bin_src: &PathBuf) -> Result<()> {
-    let root_dir = PathBuf::from("/tmp/root");
+fn setup_root() -> Result<()> {
+    let root_dir = PathBuf::from("/tmp/iso_root_fs");
     let root_pathname = root_dir.display();
 
     // create home dir inside root
     create_dir(&root_dir.join("home/tmp"))?;
     // create dev/null inside root
     create_file(&root_dir.join("dev/null"))?;
-    // // copy the executable inside root
+
+    // copy the executable inside root
     // cp_from_path(bin_src, &root_dir)?;
 
     chroot(&root_dir).context(format!(
