@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  helper:
+    image: rs-docker
+    build: .
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8080:8080"
+    restart: always
