@@ -8,7 +8,6 @@ use std::{
 mod registry;
 use registry::*;
 
-// Usage: your_docker.sh run <image> <command> <arg1> <arg2> ...
 #[tokio::main]
 async fn main() -> Result<()> {
     let args: Vec<_> = env::args().collect();
